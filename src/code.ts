@@ -1,5 +1,5 @@
-import { Observable } from 'rxjs';
-import { merge, map } from 'rxjs/operators';
+import { Observable, from } from 'rxjs';
+import { merge, map, pluck } from 'rxjs/operators';
 
 /* Operators */
 // Merge operator
@@ -25,10 +25,16 @@ Observable.create((observer: any) => {
     observer.next('Hey guys');
     observer.next('abc');
 }).pipe(map((val: any) => {
-    console.log('val', val);
     return val.toUpperCase();
 })).subscribe((res: any) => {
     // console.log('res', res);
 });
 
 // Pluck Operator
+from([
+    { first: 'Gary', last: 'Simor', age: '34' },
+    { first: 'Jane', last: 'Simon', age: '34' },
+    { first: 'John', last: 'Simo', age: '34' }
+]).pipe(pluck('first')).subscribe((result: any) => {
+    console.log('result', result);
+})
